@@ -8,21 +8,22 @@ select * from Screens;
 SELECT * FROM Users;
 
 
---Retrieve All Shows for a Given Date and Theatre
+--Retrieve All Shows for a Given Date
 SELECT movie_name FROM Movies
 WHERE release_date = '2024-11-04';
--- AND theater_name = 'FilmHouse';
 
 
 --Retrieve All Shows for a Given Movie
-
-
+SELECT showtime FROM Showtime
+JOIN Movies ON Movies.movie_id = Showtime.movie_id
+WHERE Movies.movie_name = "Uglies";
 
 -- Retrieve All Shows in a Given Theatre
 
+select showtime from Showtime
+join Theaters on Showtime.theater_id = Theaters.theater_id
+where Theaters.theater_name = "MovieMagic";
 
-
--- Retrieve Show Details for a Specific Show
 
 
 /*To list all shows on a given date at a given theatre along with their timings*/
@@ -30,16 +31,16 @@ WHERE release_date = '2024-11-04';
 
 
 SELECT 
-    m.movie_name,
-    s.showtime AS show_time
+    movie_name,
+    showtime AS show_time
 FROM 
-    Showtime s
+    Showtime
 JOIN 
-    Movies m ON s.movie_id = m.movie_id
+    Movies ON Showtime.movie_id = Movies.movie_id
 WHERE 
-    s.theater_id = 1
-    AND DATE(s.showtime) = '2024-10-27'
+    Showtime.theater_id = 1
+    AND DATE(showtime.showtime) = '2024-10-27'
 ORDER BY 
-    s.showtime;
+    showtime.showtime;
 
 
